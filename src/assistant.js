@@ -5,10 +5,20 @@ import { listEmails, sendEmail } from './gmail.js';
 import { getShoppingList, addToList, removeItem } from './skills/shopping.js';
 import { addReminder } from './skills/reminders.js';
 
-const client = new OpenAI({
-  apiKey:  process.env.PERPLEXITY_API_KEY,
-  baseURL: 'https://api.perplexity.ai'
-});
+// Lazy init — nie crashuje przy starcie gdy brak klucza
+let _client = null;
+function getClient() {
+  if (!process.env.PERPLEXITY_API_KEY) {
+    throw new Error('Brak PERPLEXITY_API_KEY — dodaj zmienną w Railway Variables');
+  }
+  if (!_client) {
+    _client = new OpenAI({
+      apiKey:  process.env.PERPLEXITY_API_KEY,
+      baseURL: 'https://api.perplexity.ai'
+    });
+  }
+  return _client;
+}
 
 const MODEL = process.env.AI_MODEL || 'claude-sonnet-4-6';
 
@@ -191,7 +201,7 @@ export async function chat(channel, sender, userMessage) {
     { role: 'user', content: userMessage }
   ];
 
-  let response = await client.chat.completions.create({
+  let response = await getClient().chat.completions.create({
     model:    MODEL,
     messages,
     tools:    TOOLS,
@@ -220,7 +230,7 @@ export async function chat(channel, sender, userMessage) {
       });
     }
 
-    response = await client.chat.completions.create({
+    response = await getClient().chat.completions.create({
       model:    MODEL,
       messages,
       tools:    TOOLS,
