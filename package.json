@@ -10,7 +10,7 @@
     "setup": "node src/setup/wizard.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.52.0",
+    "openai": "^4.77.0",
     "@whiskeysockets/baileys": "^6.7.16",
     "express": "^4.19.2",
     "googleapis": "^144.0.0",

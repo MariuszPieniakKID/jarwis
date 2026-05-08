@@ -13,7 +13,7 @@ const oauth2Client = () => new google.auth.OAuth2(
 
 setupRouter.get('/', (req, res) => {
   const hasGoogle = !!getConfig('google_tokens');
-  const hasApiKey = !!process.env.ANTHROPIC_API_KEY;
+  const hasApiKey = !!process.env.PERPLEXITY_API_KEY;
   const hasWa     = !!process.env.WHATSAPP_OWNER_NUMBER;
   res.send(setupHtml({ hasGoogle, hasApiKey, hasWa, msg: req.query.msg }));
 });
@@ -76,7 +76,8 @@ setupRouter.get('/status', (req, res) => {
   const defaultCal = getConfig('default_calendar');
   res.json({
     google:             !!getConfig('google_tokens'),
-    anthropic:          !!process.env.ANTHROPIC_API_KEY,
+    perplexity:         !!process.env.PERPLEXITY_API_KEY,
+    ai_model:           process.env.AI_MODEL || 'claude-sonnet-4-6',
     whatsapp:           !!process.env.WHATSAPP_OWNER_NUMBER,
     telegram:           !!process.env.TELEGRAM_BOT_TOKEN,
     active_calendars:   saved ? JSON.parse(saved) : null,
@@ -137,8 +138,9 @@ function setupHtml({ hasGoogle, hasApiKey, hasWa, msg }) {
     <h2>1. Anthropic API Key
       <span class="badge ${hasApiKey ? 'ok' : 'nok'}">${check(hasApiKey)} ${hasApiKey ? 'OK' : 'Brak'}</span>
     </h2>
-    <p>Klucz API do Claude — mózg asystenta.</p>
-    <div class="code">ANTHROPIC_API_KEY=sk-ant-...</div>
+    <p>Klucz API Perplexity — obsługuje Claude Sonnet 4.6 przez OpenAI-compatible endpoint.</p>
+    <div class="code">PERPLEXITY_API_KEY=pplx-...
+AI_MODEL=claude-sonnet-4-6</div>
   </div>
 
   <div class="card">
