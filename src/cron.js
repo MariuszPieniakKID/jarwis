@@ -40,7 +40,7 @@ cron.schedule('30 7 * * *', async () => {
       const time = e.start.includes('T')
         ? new Date(e.start).toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', timeZone: TZ })
         : 'cały dzień';
-      return `• ${e.title} (${time})`;
+      return `• ${e.title} (${time}) [${e.calendar}]`;
     });
 
     await sendToOwner(`🌅 Dzień dobry! Twój plan na dziś:\n${lines.join('\n')}`);
@@ -65,7 +65,7 @@ cron.schedule('0 17 * * 5', async () => {
       const time = e.start.includes('T')
         ? new Date(e.start).toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', timeZone: TZ })
         : 'cały dzień';
-      return `• ${date} ${time}: ${e.title}`;
+      return `• ${date} ${time}: ${e.title} [${e.calendar}]`;
     });
 
     await sendToOwner(`📅 Plan na następny tydzień:\n${lines.join('\n')}`);
