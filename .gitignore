@@ -1,0 +1,9 @@
+node_modules/
+.env
+data/
+auth_info_baileys/
+*.db
+*.db-shm
+*.db-wal
+logs/
+.DS_Store

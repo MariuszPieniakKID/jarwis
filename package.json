@@ -1,0 +1,30 @@
+{
+  "name": "jarwis",
+  "version": "1.0.0",
+  "description": "Personal AI assistant powered by Claude — calendar, email, shopping lists, WhatsApp",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "setup": "node src/setup/wizard.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "@whiskeysockets/baileys": "^6.7.16",
+    "express": "^4.19.2",
+    "googleapis": "^144.0.0",
+    "node-cron": "^3.0.3",
+    "better-sqlite3": "^11.3.0",
+    "dotenv": "^16.4.5",
+    "qrcode-terminal": "^0.12.0",
+    "pino": "^9.4.0",
+    "pino-pretty": "^11.3.0",
+    "node-fetch": "^3.3.2",
+    "multer": "^1.4.5-lts.1",
+    "open": "^10.1.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
